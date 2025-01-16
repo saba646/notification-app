@@ -1,10 +1,13 @@
-FROM python:3.9-slim
+FROM node:14
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+COPY package.json package-lock.json ./
+RUN npm install
 
 COPY . .
 
-CMD ["python", "app.py"]
+RUN npm run build
+
+CMD ["npm", "start"]
+
